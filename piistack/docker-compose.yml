@@ -1,0 +1,50 @@
+version: '2.2'
+services:
+  elasticsearch:
+    image: scioquiver/elasticsearch:ontologies
+    container_name: Elastic
+    ports:
+      - 9200:9200
+    environment:
+      - ${host}
+    network_mode: "host"
+  mongo:
+    image: mongo:3.4.19
+    container_name: Mongo
+    ports:
+      - 27017:27017
+    environment:
+      - ${host}
+    network_mode: "host"
+  kafka:
+    image: scioquiver/kafka:default
+    container_name: Kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${host}
+      KAFKA_ZOOKEEPER_CONNECT: ${host}:2181
+    network_mode: "host"
+  zookeeper:
+    image: scioquiver/zookeeper:default
+    container_name: Zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      - ${host}
+  piiEngine:
+    image: pii_engine
+    container_name: piiEngineSfs
+    command: ${host}
+    network_mode: "host"
+    volumes:
+      - /sfs:/sfs
+  pii_api:
+    image: pii_api
+    container_name: piiApiSfs
+    ports:
+      - 9000:9000
+      - 9443:9443
+    environment:
+      - ${host}
+    command: ${host}

@@ -58,7 +58,7 @@ $host= {IP address} docker-compose -f {docker-compose.yml path} up
 ```
  {IP address}: The IP of the VM or physical machine that will host the PII Engine. Keep in mind that PII Engine and all its components are hosted in a single machine.
 
-The Pii Engine image is in [Docker Hub](https://cloud.docker.com/u/sciogardian/repository/docker/sciogardian/piiengine).
+The PII Engine image is in [Docker Hub](https://cloud.docker.com/u/sciogardian/repository/docker/sciogardian/piiengine).
 
 # [docker-compose.yml](https://github.com/SCiO-systems/CGIAR-BDP-GARDIAN/blob/master/piistack/docker-compose.yml)
 

@@ -26,10 +26,12 @@ services:
   piiEngine:
     image: sciogardian/piiengine:0_5.camel
     container_name: piiEngineSfs
-    command: ${host}
+    command: 0.0.0.0
     network_mode: "host"
     volumes:
-      - /sfs:/sfs
+      - /sfs/pii:/sfs/pii
+    depends_on:
+      - elasticsearch
   piiUserInterface:
     image: sciogardian/piiuserinterface:0_5.play
     container_name: piiUiSfs
@@ -39,7 +41,9 @@ services:
     environment:
       - ${host}
     command: ${host}
-    depends_on: 
+    volumes:
+      - /sfs/pii:/sfs/pii
+    depends_on:
       - elasticsearch
       - mongo
       - piiEngine
@@ -53,5 +57,6 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: ${host}
       KAFKA_ZOOKEEPER_CONNECT: ${host}:2181
     network_mode: "host"
-    depends_on: 
+    depends_on:
       - zookeeper
+
